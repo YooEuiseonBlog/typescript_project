@@ -1,19 +1,33 @@
 import styled from "styled-components";
 
-// const x = (a: number, b: number) => a + b; type definition example
-interface CircleProps {
+interface ContainerProps {
   bgColor: string;
+  borderColor: string;
 }
 
-const Container = styled.div<CircleProps>`
+interface CircleProps {
+  bgColor: string;
+  borderColor?: string;
+  text?: string;
+}
+
+const Container = styled.div<ContainerProps>`
   width: 200px;
   height: 200px;
   background-color: ${(props) => props.bgColor};
   border-radius: 100px;
+  border: 1px solid ${(props) => props.borderColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-function Circle({ bgColor }: CircleProps) {
-  return <Container bgColor={bgColor} />;
+function Circle({ bgColor, borderColor, text = "default text" }: CircleProps) {
+  return (
+    <Container bgColor={bgColor} borderColor={borderColor ?? bgColor}>
+      <span>{text}</span>
+    </Container>
+  );
 }
 
 export default Circle;
